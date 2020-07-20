@@ -165,6 +165,7 @@ module.exports = require("os");
 
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
+const regex = /\n\n<!-- abm_metadata = (.*) -->/
 
 
 // most @actions toolkit packages have async methods

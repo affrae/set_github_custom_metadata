@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const regex = /\n\n<!-- abm_metadata = (.*) -->/
 
 
 // most @actions toolkit packages have async methods
