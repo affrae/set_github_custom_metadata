@@ -1,9 +1,6 @@
 name: 'Set GitHub Custom Metadata'
 description: 'Sets custom metadata in the OP of a GitHub issue'
 inputs:
-  issue:  # id of input
-    description: 'The issue to set metadata in'
-    required: true
   key:
     description: 'The key to set a value for'
     required: true
