@@ -7,6 +7,9 @@ inputs:
   value:
     description: 'The value to set'
     required: true
+  myToken:  # id of input
+    description: 'The token for access'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
