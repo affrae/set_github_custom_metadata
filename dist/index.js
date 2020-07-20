@@ -184,7 +184,7 @@ async function run() {
     console.log(key);
     console.log(value);
 
-    const body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number']})).data.body;
+    let body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number']})).data.body;
 
     console.log(body);
 
