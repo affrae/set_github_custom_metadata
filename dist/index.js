@@ -206,7 +206,7 @@ async function run() {
     console.log(body);
 
 
-    return github.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number'],body:body})
+    return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number'],body:body})
 
   } catch (error) {
     core.setFailed(error.message);
