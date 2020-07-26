@@ -6,16 +6,17 @@ const regex = /\n\n<!-- abm_metadata = (.*) -->/
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const issue = core.getInput('issue_number') ? core.getInput('issue_number') : github.context.issue;
+    const issue = github.context.issue;
+    const issue_number = core.getInput('issue_number') ? core.getInput('issue_number') : github.context.issue['number'];
     const key = core.getInput('key');
     const value = core.getInput('value');
     const myToken = core.getInput('myToken');
     const octokit = github.getOctokit(myToken);
     let data = {}
 
-    console.log("issue_number: " + issue);
+    console.log("issue_number: " + issue_number);
 
-    let body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number']})).data.body;
+    let body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number})).data.body;
 
     body = body.replace(regex, (_, json) => {
         data = JSON.parse(json)
