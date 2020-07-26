@@ -178,6 +178,8 @@ async function run() {
     const octokit = github.getOctokit(myToken);
     let data = {}
 
+    console.log("issue_number: " + issue);
+
     let body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number']})).data.body;
 
     body = body.replace(regex, (_, json) => {
