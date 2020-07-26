@@ -198,7 +198,7 @@ async function run() {
 
     body = `${body}\n\n<!-- abm_metadata = ${JSON.stringify(data)} -->`
 
-    return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue['number'],body:body})
+    return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number,body:body})
 
   } catch (error) {
     core.setFailed(error.message);
