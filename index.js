@@ -31,7 +31,7 @@ async function run() {
       data[key] = value
     }
 
-    body = `${body}\n\n<!-- abm_metadata = ${JSON.stringify(data)} -->`
+    body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
 
     return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number,body:body})
 
