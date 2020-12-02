@@ -173,7 +173,7 @@ async function run() {
   try {
     const issue = github.context.issue;
     const issue_number = core.getInput('issue_number') ? core.getInput('issue_number') : github.context.issue['number'];
-    const key = core.getInput('key');
+    const key = core.getInput('key') ? core.getInput('key') : null;
     const value = core.getInput('value');
     const myToken = core.getInput('myToken');
     const octokit = github.getOctokit(myToken);
@@ -188,15 +188,18 @@ async function run() {
         return ''
       })
 
-    if (!data) data = {}
 
-    if (typeof key === 'object') {
-      Object.assign(data, key)
+    if (key !== null) {
+      if (!data) data = {}
+      if (typeof key === 'object') {
+        Object.assign(data, key)
+      } else {
+        data[key] = value
+      }
+      body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
     } else {
-      data[key] = value
+      body = `${body}<!-- abm_metadata = ${value} -->`
     }
-
-    body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
 
     return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number,body:body})
 
