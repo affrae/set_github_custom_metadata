@@ -2,13 +2,13 @@ name: 'Set GitHub Custom Metadata'
 description: 'Sets custom metadata in the OP of a GitHub issue'
 inputs:
   issue_number:
-    description: 'The issue body to set a value in'
+    description: 'The issue body to set a value in. If not provided github.context.issue[\'number\'] will be used'
     required: false
   key:
-    description: 'The key to set a value for'
-    required: true
+    description: 'The key to set a value for. If not provided, the entire existing metadata will be replaced by the provided value'
+    required: false
   value:
-    description: 'The value to set'
+    description: 'The value to set - can be the entire metadata set'
     required: true
   myToken:  # id of input
     description: 'The token for access'
