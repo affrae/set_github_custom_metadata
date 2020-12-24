@@ -195,7 +195,7 @@ async function run() {
         data[key] = value
       }
       body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
-    } else if (key !== null) {
+    } else if (key !== null && key.startsWith('{') && key.endsWith('}')) {
         parsedKey = JSON.parse(key)
         if (parsedKey !== null && typeof parsedKey === 'object') {
           Object.assign(data, parsedKey)
