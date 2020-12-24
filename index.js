@@ -14,7 +14,7 @@ async function run() {
     const octokit = github.getOctokit(myToken);
     let data = {}
 
-    console.log("issue_number: " + issue_number);
+    core.info("issue_number: " + issue_number);
 
     let body = (await octokit.issues.get({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number})).data.body;
 
@@ -25,20 +25,27 @@ async function run() {
 
     if (!data) data = {}
 
+    core.info("data: " + JSON.stringify(data))
+
     if (key !== null && value !== null) {
+      core.info("key !== null && value !== null")
       if (typeof key === 'string' && typeof value === 'string') {
+        core.info("typeof key === 'string' && typeof value === 'string'")
         data[key] = value
       }
       body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
     } else if (key !== null && key.startsWith('{') && key.endsWith('}')) {
+        core.info("key !== null && key.startsWith('{') && key.endsWith('}')")
         parsedKey = JSON.parse(key)
         if (parsedKey !== null && typeof parsedKey === 'object') {
+          core.info("parsedKey !== null && typeof parsedKey === 'object'")
           Object.assign(data, parsedKey)
         } else {
-          console.log('There is  a problem with key')
+          core.info('There is  a problem with key')
         }
         body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
     } else if (value !== null) {
+      core.info("value !== null")
       body = `${body}<!-- abm_metadata = ${value} -->`
     }
 
