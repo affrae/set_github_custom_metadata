@@ -25,7 +25,7 @@ async function run() {
 
     if (!data) data = {}
 
-    core.info("data: " + JSON.stringify(data))
+    core.info("BEFORE: data: " + JSON.stringify(data))
 
     if (key !== null && value !== null) {
       core.info("key !== null && value !== null")
@@ -48,6 +48,8 @@ async function run() {
       core.info("value !== null")
       body = `${body}<!-- abm_metadata = ${value} -->`
     }
+
+    core.info("AFTER: data: " + JSON.stringify(data))
 
     return octokit.issues.update({owner:issue['owner'],repo:issue['repo'],issue_number:issue_number,body:body})
 
