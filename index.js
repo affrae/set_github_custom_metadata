@@ -44,7 +44,11 @@ async function run() {
           core.info('There is  a problem with key')
         }
         body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
-    } else if (value !== null) {
+    } else if (key !== null) {
+        core.info("key !== null")
+        data[key] = ""
+        body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
+      } else if (value !== null) {
       core.info("value !== null")
       body = `${body}<!-- abm_metadata = ${value} -->`
     }
