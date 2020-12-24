@@ -41,7 +41,7 @@ async function run() {
           core.info("parsedKey !== null && typeof parsedKey === 'object'")
           Object.assign(data, parsedKey)
         } else {
-          core.info('There is  a problem with key')
+          throw('There is  a problem with key as the JSON Parser is not working, yet key is of the form "{...}"')
         }
         body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
     } else if (key !== null) {
