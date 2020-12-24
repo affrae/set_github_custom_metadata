@@ -174,7 +174,7 @@ async function run() {
     const issue = github.context.issue;
     const issue_number = core.getInput('issue_number') ? core.getInput('issue_number') : github.context.issue['number'];
     const key = core.getInput('key') ? core.getInput('key') : null;
-    const value = core.getInput('value');
+    const value = core.getInput('value') ? core.getInput('value') : null;
     const myToken = core.getInput('myToken');
     const octokit = github.getOctokit(myToken);
     let data = {}
@@ -188,16 +188,22 @@ async function run() {
         return ''
       })
 
+    if (!data) data = {}
 
-    if (key !== null) {
-      if (!data) data = {}
-      if (typeof key === 'object') {
-        Object.assign(data, key)
-      } else {
+    if (key !== null && value !== null) {
+      if (typeof key === 'string' && typeof value === 'string') {
         data[key] = value
       }
       body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
-    } else {
+    } else if (key !== null) {
+        parsedKey = JSON.parse(key)
+        if (parsedKey !== null && typeof parsedKey === 'object') {
+          Object.assign(data, parsedKey)
+        } else {
+          console.log('There is  a problem with key')
+        }
+        body = `${body}<!-- abm_metadata = ${JSON.stringify(data)} -->`
+    } else if (value !== null) {
       body = `${body}<!-- abm_metadata = ${value} -->`
     }
 
